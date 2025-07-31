@@ -22,21 +22,15 @@ export default async function Article({
     return (
         <>
             <main className="flex min-h-screen flex-col items-center py-12 bg-wisppink">
-                <div className="z-10 w-full max-w-5xl items-center font-mono lg:flex flex-col bg-cabaret">
-                    <div className="w-full justify-around flex-row flex my-10">
-                        <h1 className="text-4xl leading-normal text-center">
-                            { data.frontmatter.title }
-                        </h1>
-                    </div>
+                <h1 className="rounded-md text-4xl leading-normal text-center bg-cabaret font-bold mb-10 p-4">
+                    {data.frontmatter.title}
+                </h1>
+                <div className="z-10 rounded-md min-h-screen w-full max-w-3xl items-start lg:flex flex-col bg-cabaret p-10">
+                    <p className="leading-loose text-lg text-left mb-10">
+                        {data.content}
+                    </p>
                 </div>
-                <div className="z-10 w-full max-w-5xl items-start font-mono lg:flex flex-col bg-cabaret px-4">
-                    <div>
-                        <p className="leading-loose text-sm text-left mb-10 ml-8">
-                            { data.content}
-                        </p>
-                    </div>
-                </div>
-            </main >
+            </main>
         </>
     )
 

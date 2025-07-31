@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const dir = '../portfolio/app/blog/posts/';
+    const dir = '../frontend/app/blog/posts/';
 
     const files = fs.readdirSync(dir);
 
@@ -24,7 +24,7 @@ export async function GET() {
 
         } catch (error: any) {
 
-          console.error("Error reading " + file + ": " + error.message);
+          return new NextResponse("Error reading " + file + ": " + error.message);
 
         }
 
@@ -35,6 +35,6 @@ export async function GET() {
     return new NextResponse(JSON.stringify(fmatter));
     
   } catch (error: any) {
-    console.error("Error reading file: " + error.message);
+    return new NextResponse("Error reading file: " + error.message);
   }
 }

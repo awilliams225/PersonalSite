@@ -1,29 +1,25 @@
 import PostPreview from "../components/postpreview";
-
-type Matter = {
-    content: string,
-    data: Post
-}
-
-type Post = {
-    title: string,
-    abstract: string,
-    author: string,
-    slug: string,
-    publishedOn: Date
-}
+import { Matter } from "../types/posttypes";
 
 export default async function Blog() {
 
     const res = await fetch('http://localhost:3000/api/test', {cache: "default"});
     console.log(res);
-    const data: Matter[] = JSON.parse(await res.text());
+    let data: Matter[] = [];
+    try {
+        const text = await res.text();
+        console.log('Response status:', text);
+        data = text ? JSON.parse(text) : [];
+    } catch (error) {
+        console.error('JSON parse error:', error);
+        data = [];
+    }
     console.log(data);
     return (
         <>
-            <main className="flex min-h-screen flex-col items-center justify-between pb-24 bg-wisppink">
-                <div className="z-10 grid grid-cols-4 w-full max-w-5xl items-start justify-start font-mono text-sm">
-                    { data.map((post) => <PostPreview key={post.toString()} post={post.data} />) }    
+            <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-wisppink">
+                <div className="z-10 grid grid-cols-4 auto-rows-[300px] w-full max-w-5xl items-start justify-start font-mono text-sm gap-4">
+                    { data.map((post, i) => <PostPreview key={post.toString()} post={post.data} large={i === 0} />) }
                 </div>
             </main>
         </>
